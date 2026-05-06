@@ -28,6 +28,11 @@ PreDemande.init(
     ville: {
       type: DataTypes.STRING,
     },
+    type_demande: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "demande_parcelle",
+    },
     statut: {
       type: DataTypes.STRING,
       defaultValue: "en_attente",

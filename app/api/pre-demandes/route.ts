@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import PreDemande from "@/models/PreDemande";
+import { sendVerificationEmail } from "@/lib/mail";
 
 export async function GET() {
   try {
@@ -25,7 +26,8 @@ export async function POST(request: Request) {
       !body.prenom ||
       !body.email ||
       !body.adresse ||
-      !body.ville
+      !body.ville ||
+      !body.type_demande
     ) {
       return NextResponse.json(
         { message: "Tous les champs sont obligatoires" },
@@ -33,7 +35,19 @@ export async function POST(request: Request) {
       );
     }
 
-    if (body.ville.trim().toLowerCase() !== "versailles") {
+    const typesDemandesAutorises = ["adhesion_simple", "demande_parcelle"];
+
+    if (!typesDemandesAutorises.includes(body.type_demande)) {
+      return NextResponse.json(
+        { message: "Type de demande invalide" },
+        { status: 400 }
+      );
+    }
+
+    if (
+      body.type_demande === "demande_parcelle" &&
+      body.ville.trim().toLowerCase() !== "versailles"
+    ) {
       return NextResponse.json(
         {
           message:
@@ -60,6 +74,11 @@ export async function POST(request: Request) {
       );
     }
 
+    const statutInitial =
+      body.type_demande === "adhesion_simple"
+        ? "en_attente_paiement"
+        : "en_attente_validation";
+
     const token = crypto.randomUUID();
 
     const expiresAt = new Date(
@@ -72,9 +91,13 @@ export async function POST(request: Request) {
       email: body.email,
       adresse: body.adresse,
       ville: body.ville,
+      type_demande: body.type_demande,
+      statut: statutInitial,
       email_token: token,
       email_token_expires_at: expiresAt,
     });
+
+    await sendVerificationEmail(body.email, token);
 
     return NextResponse.json(
       {
