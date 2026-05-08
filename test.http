@@ -3,10 +3,10 @@ POST http://localhost:3000/api/pre-demandes
 Content-Type: application/json
 
 {
-  "nom": "aboudi",
-  "prenom": "Ahmed",
-  "email": "jardinpartage.test+verify3@gmail.com",
-  "adresse": "5 rue des oiseaux",
+  "nom": "Test",
+  "prenom": "Parcelle",
+  "email": "jardinpartage.test+blocage1@gmail.com",
+  "adresse": "20 rue des tests",
   "ville": "Versailles",
   "type_demande": "demande_parcelle"
 }

@@ -29,3 +29,89 @@ export async function sendVerificationEmail(
     `,
   });
 }
+export async function sendAdminNotificationEmail(demande: any) {
+  await transporter.sendMail({
+    from: process.env.EMAIL_USER,
+    to: process.env.ADMIN_EMAIL,
+    subject: "Nouvelle demande reçue - Jardin Partagé",
+    html: `
+      <h2>Nouvelle demande reçue</h2>
+
+      <p><strong>Nom :</strong> ${demande.nom}</p>
+      <p><strong>Prénom :</strong> ${demande.prenom}</p>
+      <p><strong>Email :</strong> ${demande.email}</p>
+      <p><strong>Adresse :</strong> ${demande.adresse}</p>
+      <p><strong>Ville :</strong> ${demande.ville}</p>
+      <p><strong>Type de demande :</strong> ${demande.type_demande}</p>
+      <p><strong>Statut :</strong> ${demande.statut}</p>
+
+      <p>
+        Vous pouvez consulter les demandes dans l’espace administrateur.
+      </p>
+    `,
+  });
+}
+
+export async function sendAdminDecisionEmail(demande: any, statut: string) {
+  let subject = "";
+  let html = "";
+
+  if (statut === "liste_attente") {
+    subject = "Votre demande de parcelle - Liste d'attente";
+
+    html = `
+      <h2>Votre demande de parcelle</h2>
+      <p>Bonjour ${demande.prenom},</p>
+      <p>
+        Votre demande a bien été étudiée.
+      </p>
+      <p>
+        Pour le moment, aucune parcelle n'est disponible.
+        Vous êtes placé(e) sur liste d'attente.
+      </p>
+      <p>
+        Vous recevrez un nouvel email dès qu'une parcelle se libérera.
+      </p>
+    `;
+  }
+
+  if (statut === "paiement_envoye") {
+    subject = "Une parcelle est disponible - Jardin Partagé";
+
+    html = `
+      <h2>Une parcelle est disponible</h2>
+      <p>Bonjour ${demande.prenom},</p>
+      <p>
+        Une parcelle est actuellement disponible.
+      </p>
+      <p>
+        Vous pouvez procéder au paiement de votre cotisation afin de confirmer votre adhésion.
+      </p>
+      <p>
+        Le lien de paiement vous sera transmis prochainement.
+      </p>
+    `;
+  }
+
+  if (statut === "refusee") {
+    subject = "Réponse à votre demande - Jardin Partagé";
+
+    html = `
+      <h2>Réponse à votre demande</h2>
+      <p>Bonjour ${demande.prenom},</p>
+      <p>
+        Après étude de votre demande, nous ne pouvons malheureusement pas y donner une suite favorable.
+      </p>
+      <p>
+        Nous vous remercions pour l'intérêt porté au Jardin Partagé.
+      </p>
+    `;
+  }
+
+  await transporter.sendMail({
+    from: process.env.EMAIL_USER,
+    to: demande.email,
+    subject: subject,
+    html: html,
+  });
+}

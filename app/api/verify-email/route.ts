@@ -35,11 +35,19 @@ export async function GET(request: Request) {
       );
     }
 
+    const typeDemande = demande.get("type_demande") as string;
+
+    const statutApresVerification =
+      typeDemande === "adhesion_simple"
+        ? "en_attente_paiement"
+        : "en_attente_validation_parcelle";
+
     await demande.update({
       email_verified_at: new Date(),
       email_token: null,
       email_token_expires_at: null,
-    });
+      statut: statutApresVerification,
+   });
 
     return NextResponse.json({
       message: "Email vérifié avec succès.",

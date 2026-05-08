@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import PreDemande from "@/models/PreDemande";
-import { sendVerificationEmail } from "@/lib/mail";
+import { sendVerificationEmail,
+         sendAdminNotificationEmail,
+ } from "@/lib/mail";
 
 export async function GET() {
   try {
@@ -98,6 +100,7 @@ export async function POST(request: Request) {
     });
 
     await sendVerificationEmail(body.email, token);
+    await sendAdminNotificationEmail(nouvelleDemande);
 
     return NextResponse.json(
       {
