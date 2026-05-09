@@ -76,22 +76,34 @@ export async function sendAdminDecisionEmail(demande: any, statut: string) {
   }
 
   if (statut === "paiement_envoye") {
-    subject = "Une parcelle est disponible - Jardin Partagé";
 
-    html = `
-      <h2>Une parcelle est disponible</h2>
-      <p>Bonjour ${demande.prenom},</p>
-      <p>
-        Une parcelle est actuellement disponible.
-      </p>
-      <p>
-        Vous pouvez procéder au paiement de votre cotisation afin de confirmer votre adhésion.
-      </p>
-      <p>
-        Le lien de paiement vous sera transmis prochainement.
-      </p>
-    `;
-  }
+  const paiementLink =
+    `http://localhost:3000/paiement?id=${demande.id_predemande}`;
+
+  subject =
+    "Une parcelle est disponible - Jardin Partagé";
+
+  html = `
+    <h2>Une parcelle est disponible</h2>
+
+    <p>Bonjour ${demande.prenom},</p>
+
+    <p>
+      Une parcelle est actuellement disponible.
+    </p>
+
+    <p>
+      Vous pouvez désormais procéder au règlement
+      de votre cotisation afin de finaliser votre adhésion.
+    </p>
+
+    <p>
+      <a href="${paiementLink}">
+        Accéder au paiement
+      </a>
+    </p>
+  `;
+}
 
   if (statut === "refusee") {
     subject = "Réponse à votre demande - Jardin Partagé";
