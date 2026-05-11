@@ -127,3 +127,34 @@ export async function sendAdminDecisionEmail(demande: any, statut: string) {
     html: html,
   });
 }
+export async function sendPaiementEmail(demande: any) {
+  const paiementLink =
+    `http://localhost:3000/paiement?id=${demande.id_predemande}`;
+
+  await transporter.sendMail({
+    from: process.env.EMAIL_USER,
+    to: demande.email,
+    subject: "Paiement de votre cotisation - Jardin Partagé",
+    html: `
+      <h2>Paiement de votre cotisation</h2>
+
+      <p>Bonjour ${demande.prenom},</p>
+
+      <p>
+        Votre adresse email a bien été confirmée.
+      </p>
+
+      <p>
+        Vous pouvez désormais procéder au règlement
+        de votre cotisation afin de finaliser votre adhésion
+        au Jardin Partagé.
+      </p>
+
+      <p>
+        <a href="${paiementLink}">
+          Accéder au paiement
+        </a>
+      </p>
+    `,
+  });
+}

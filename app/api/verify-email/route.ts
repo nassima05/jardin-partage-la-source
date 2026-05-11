@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import PreDemande from "@/models/PreDemande";
+import { sendPaiementEmail } from "@/lib/mail";
 
 export async function GET(request: Request) {
   try {
@@ -48,6 +49,10 @@ export async function GET(request: Request) {
       email_token_expires_at: null,
       statut: statutApresVerification,
    });
+   
+   if (typeDemande === "adhesion_simple") {
+  await sendPaiementEmail(demande);
+}
 
     return NextResponse.json({
       message: "Email vérifié avec succès.",
