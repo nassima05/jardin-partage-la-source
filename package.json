@@ -12,6 +12,7 @@
     "@stripe/stripe-js": "^9.4.0",
     "bootstrap": "^5.3.8",
     "dotenv": "^17.4.2",
+    "jsonwebtoken": "^9.0.3",
     "next": "16.2.2",
     "nodemailer": "^8.0.5",
     "pg": "^8.20.0",
@@ -22,6 +23,7 @@
     "stripe": "^22.1.1"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20",
     "@types/nodemailer": "^8.0.0",
     "@types/react": "^19",
