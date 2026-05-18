@@ -1,88 +1,26 @@
-/*
-|--------------------------------------------------------------------------
-| IMPORT LINK NEXT.JS
-|--------------------------------------------------------------------------
-|
-| Permet de naviguer entre les pages :
-|
-| /don
-| /administrateur
-| etc.
-|
-*/
-import Link from "next/link";
 
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import styles from "./page.module.css";
 
-
-/*
-|--------------------------------------------------------------------------
-| PAGE D'ACCUEIL
-|--------------------------------------------------------------------------
-*/
 export default function Home() {
-
   return (
+    <>
+      <Navbar />
 
-    /*
-    |--------------------------------------------------------------------------
-    | CONTAINER BOOTSTRAP
-    |--------------------------------------------------------------------------
-    |
-    | mt-5
-    | = margin top Bootstrap
-    |
-    */
-    <div className="container mt-5">
+      <header className={styles.hero}>
+        <div className="container text-center">
+          <h1 className={styles.title}>
+            Jardin Partagé La Source
+          </h1>
 
-
-
-      {/* TITRE */}
-      <h1 className="text-success">
-
-        Jardin Partagé La Source
-
-      </h1>
-
-
-
-      {/*
-      |--------------------------------------------------------------------------
-      | LIEN VERS PAGE DON
-      |--------------------------------------------------------------------------
-      |
-      | href="/don"
-      |
-      | Quand utilisateur clique :
-      | → ouvre page /don
-      |
-      */}
-      <Link href="/don">
-
-
-
-        {/*
-        |--------------------------------------------------------------------------
-        | BOUTON BOOTSTRAP
-        |--------------------------------------------------------------------------
-        |
-        | btn
-        | = style bouton Bootstrap
-        |
-        | btn-primary
-        | = bouton bleu Bootstrap
-        |
-        | mt-3
-        | = margin top Bootstrap
-        |
-        */}
-        <button className="btn btn-primary mt-3">
-
-          Faire un don
-
-        </button>
-
-      </Link>
-
-    </div>
+          <p className={styles.subtitle}>
+            Un espace collectif de jardinage, de partage et de rencontres
+            au cœur du quartier Bernard de Jussieu à Versailles.
+          </p>
+        </div>
+      </header>
+      <Footer />
+    </>
   );
 }

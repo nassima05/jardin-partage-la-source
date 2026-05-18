@@ -13,6 +13,9 @@ import { useState } from "react";
 // Import du fichier CSS module
 import styles from "./page.module.css";
 
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
+
 
 
 /*
@@ -174,8 +177,11 @@ if (!montantNumber || montantNumber < 1) {
   |--------------------------------------------------------------------------
   */
   return (
+      <>
+      <Navbar />
 
     <main className={styles.container}>
+    
 
 
 
@@ -247,5 +253,7 @@ if (!montantNumber || montantNumber < 1) {
       )}
 
     </main>
+     <Footer />
+     </>
   );
 }
