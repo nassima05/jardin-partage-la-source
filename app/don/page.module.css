@@ -1,11 +1,25 @@
 /*
 |--------------------------------------------------------------------------
-| CONTAINER PRINCIPAL
+| PAGE
 |--------------------------------------------------------------------------
 */
-.container {
-  padding: 11rem 2rem 4rem;
+.main {
+  background-color: white;
 }
+
+
+
+/*
+|--------------------------------------------------------------------------
+| HERO
+|--------------------------------------------------------------------------
+*/
+.hero {
+  padding: 12rem 0 5rem;
+  background-color: #F4F8F2;
+  text-align: center;
+}
+
 
 
 /*
@@ -14,9 +28,93 @@
 |--------------------------------------------------------------------------
 */
 .title {
-  font-size: 2.5rem;
+  color: #1F1F1F;
+  font-size: 3rem;
+  font-weight: 700;
   margin-bottom: 1rem;
 }
+
+
+
+/*
+|--------------------------------------------------------------------------
+| SOUS TITRE
+|--------------------------------------------------------------------------
+*/
+.subtitle {
+  max-width: 850px;
+  margin: auto;
+  font-size: 1.15rem;
+  line-height: 1.8;
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| SECTION DON
+|--------------------------------------------------------------------------
+*/
+.donationSection {
+  padding: 5rem 0;
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| CARTE DON
+|--------------------------------------------------------------------------
+*/
+.donationCard {
+  max-width: 850px;
+
+  margin: auto;
+
+  background-color: white;
+
+  border-radius: 20px;
+
+  padding: 3rem;
+
+  border: 1px solid #dfe8dc;
+
+  box-shadow: 0 10px 25px rgba(83, 129, 53, 0.12);
+}
+
+/*
+|--------------------------------------------------------------------------
+| IMAGE DON
+|--------------------------------------------------------------------------
+*/
+.donationImage {
+
+  width: 100%;
+
+  height: 320px;
+
+  object-fit: cover;
+
+  border-radius: 16px;
+
+  margin: 2rem 0;
+
+  box-shadow: 0 6px 18px rgba(83, 129, 53, 0.15);
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| TITRE CARTE
+|--------------------------------------------------------------------------
+*/
+.cardTitle {
+  color: #1F1F1F;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
 
 
 /*
@@ -25,8 +123,10 @@
 |--------------------------------------------------------------------------
 */
 .text {
-  margin-bottom: 1rem;
+  line-height: 1.8;
+  font-size: 1.05rem;
 }
+
 
 
 /*
@@ -36,98 +136,171 @@
 */
 .amounts {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
 }
+
+
 
 /*
 |--------------------------------------------------------------------------
-| BOUTONS RAPIDES
+| BOUTON MONTANT
 |--------------------------------------------------------------------------
 */
-.amounts button {
+.amountButton {
+  border: none;
 
-  padding: 0.5rem 1rem;
+  background-color: #F4F8F2;
 
-  border: 1px solid #538135;
+  color: #3F6F3A;
 
-  background-color: white;
+  padding: 0.9rem 1.4rem;
+
+  border-radius: 999px;
+
+  font-weight: 700;
+
+  transition: 0.3s;
 
   cursor: pointer;
 
-  transition: 0.3s;
+  box-shadow: 0 4px 10px rgba(83, 129, 53, 0.08);
 }
 
 
 
 /*
 |--------------------------------------------------------------------------
-| SURVOL BOUTONS RAPIDES
+| HOVER MONTANT
 |--------------------------------------------------------------------------
 */
-.amounts button:hover {
-
+.amountButton:hover {
   background-color: #538135;
-
   color: white;
+  transform: translateY(-2px);
 }
+
 
 
 /*
 |--------------------------------------------------------------------------
-| INPUT MONTANT LIBRE
+| ZONE PERSONNALISÉE
+|--------------------------------------------------------------------------
+*/
+.customAmount {
+  margin-top: 2rem;
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| INPUT
 |--------------------------------------------------------------------------
 */
 .input {
-  padding: 0.5rem;
+  width: 220px;
+
+  padding: 1rem;
+
+  border-radius: 12px;
+
+  border: 1px solid #d4d4d4;
+
+  outline: none;
+
+  transition: 0.3s;
+
   margin-right: 1rem;
-  width: 120px;
 }
 
 
+
+/*
+|--------------------------------------------------------------------------
+| FOCUS INPUT
+|--------------------------------------------------------------------------
+*/
+.input:focus {
+  border-color: #538135;
+
+  box-shadow: 0 0 0 4px rgba(83, 129, 53, 0.12);
+}
+
+
+
 /*
 |--------------------------------------------------------------------------
 | BOUTON DON
 |--------------------------------------------------------------------------
 */
-/*
-|--------------------------------------------------------------------------
-| BOUTON DON
-|--------------------------------------------------------------------------
-*/
-.button {
-
-  padding: 0.5rem 1rem;
-
-  cursor: pointer;
+.submitButton {
+  border: none;
 
   background-color: #538135;
 
   color: white;
 
-  border: none;
+  padding: 1rem 1.5rem;
+
+  border-radius: 999px;
+
+  font-weight: 700;
 
   transition: 0.3s;
+
+  cursor: pointer;
 }
 
 
 
 /*
 |--------------------------------------------------------------------------
-| SURVOL BOUTON DON
+| HOVER BOUTON DON
 |--------------------------------------------------------------------------
 */
-.button:hover {
-
-  background-color: #3F6F3A;
+.submitButton:hover {
+  background-color: #456d2c;
+  transform: translateY(-2px);
 }
+
+
 
 /*
 |--------------------------------------------------------------------------
-| MESSAGE ERREUR
+| BLOC PROJETS
 |--------------------------------------------------------------------------
 */
+.projectBox {
+  margin-top: 3rem;
+
+  background-color: #F4F8F2;
+
+  border-radius: 16px;
+
+  padding: 2rem;
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| LISTE
+|--------------------------------------------------------------------------
+*/
+.projectBox ul {
+  margin-top: 1rem;
+}
+
+
+
+.projectBox li {
+  margin-bottom: 0.7rem;
+}
+
 .error {
   color: red;
   margin-top: 1rem;
+  font-weight: 600;
 }

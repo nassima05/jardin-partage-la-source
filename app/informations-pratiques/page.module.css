@@ -1,0 +1,301 @@
+/*
+|--------------------------------------------------------------------------
+| PAGE
+|--------------------------------------------------------------------------
+*/
+.main {
+  background-color: white;
+}
+
+/*
+|--------------------------------------------------------------------------
+| HERO
+|--------------------------------------------------------------------------
+*/
+.hero {
+  padding: 12rem 0 5rem;
+  background-color: #F4F8F2;
+}
+
+.title {
+  color: #1F1F1F;
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+.heroImage {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| SECTIONS
+|--------------------------------------------------------------------------
+*/
+.sectionTitle {
+  color: #0f0f0f;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.text {
+  max-width: 900px;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.lightSection {
+  background-color: #F4F8F2;
+}
+
+/*
+|--------------------------------------------------------------------------
+| CARTES
+|--------------------------------------------------------------------------
+*/
+.card {
+  height: 100%;
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid #dfe8dc;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card h3 {
+  color: #3F6F3A;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.card p {
+  line-height: 1.7;
+}
+
+/*
+|--------------------------------------------------------------------------
+| FONCTIONNEMENT
+|--------------------------------------------------------------------------
+*/
+.infoList {
+  display: grid;
+  gap: 1rem;
+  max-width: 1000px;
+}
+
+.infoItem {
+  background-color: #F4F8F2;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  line-height: 1.7;
+}
+
+/*
+|--------------------------------------------------------------------------
+| ENCADRÉ SOUTIEN
+|--------------------------------------------------------------------------
+*/
+.supportBox {
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 950px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  line-height: 1.7;
+}
+
+.supportBox ul {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.supportBox li {
+  margin-bottom: 0.5rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| LIEN CONTACT
+|--------------------------------------------------------------------------
+*/
+.contactLink {
+  color: #538135;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.contactLink:hover {
+  color: #E58A2A;
+  text-decoration: underline;
+}
+
+/*
+|--------------------------------------------------------------------------
+| HORLOGE
+|--------------------------------------------------------------------------
+*/
+.clockBox {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: #111111;
+  color: #FFF3A3;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+  font-weight: 700;
+  min-height: 52px;
+  box-shadow: 0 0 10px rgba(255, 243, 163, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.clockTime {
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+.blink {
+  animation: blinkColon 1s infinite;
+}
+
+@keyframes blinkColon {
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| CALENDRIER
+|--------------------------------------------------------------------------
+*/
+.calendarBox {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  margin-top: 2rem;
+  box-shadow: 0 6px 20px rgba(83, 129, 53, 0.15);
+}
+
+.monthCard {
+  background-color: #F4F8F2;
+  border-radius: 12px;
+  padding: 1rem;
+  min-height: 220px;
+  transition: 0.3s;
+}
+
+.monthCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(83, 129, 53, 0.18);
+}
+
+.monthCard h3 {
+  color: #3F6F3A;
+  font-size: 1.4rem;
+  margin: 0.8rem 0;
+}
+
+.monthCard p {
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.monthImage {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.weatherBar {
+  display: flex;
+  align-items: stretch;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1rem 0 1.5rem;
+}
+
+.weatherBox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  background-color: #111111;
+  color:  #FFF3A3;
+
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+
+  font-weight: 700;
+  min-height: 52px;
+
+  box-shadow: 0 0 10px rgba(255, 243, 163, 0.18);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.clockBox:hover,
+.weatherBox:hover {
+  transform: translateY(-3px);
+}
+/*
+|--------------------------------------------------------------------------
+| IMAGE FONCTIONNEMENT DU JARDIN
+|--------------------------------------------------------------------------
+*/
+.functionImage {
+
+  width: 100%;
+
+  height: 360px;
+
+  object-fit: cover;
+
+  border-radius: 16px;
+
+  box-shadow: 0 6px 18px rgba(83, 129, 53, 0.15);
+}
+/*
+|--------------------------------------------------------------------------
+| RESPONSIVE TABLETTE
+|--------------------------------------------------------------------------
+*/
+@media screen and (max-width: 992px) {
+
+  .calendarBox {
+
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+
+/*
+|--------------------------------------------------------------------------
+| RESPONSIVE MOBILE
+|--------------------------------------------------------------------------
+*/
+@media screen and (max-width: 576px) {
+
+  .calendarBox {
+
+    grid-template-columns: 1fr;
+  }
+}
