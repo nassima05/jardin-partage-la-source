@@ -5,11 +5,34 @@
 */
 
 // Import NextResponse
-// Permet de retourner une réponse API
+// Permet de retourner une réponse API Next.js
 import { NextResponse } from "next/server";
 
 // Import Stripe
+// Permet de créer une session de paiement Stripe Checkouts
 import Stripe from "stripe";
+
+
+
+/*
+|--------------------------------------------------------------------------
+| VÉRIFICATION CLÉ STRIPE
+|--------------------------------------------------------------------------
+|
+| STRIPE_SECRET_KEY doit être présente dans le fichier .env
+|
+| Exemple :
+| STRIPE_SECRET_KEY=sk_test_...
+|
+| Si la clé est absente, l'application affiche une erreur claire.
+|
+*/
+if (!process.env.STRIPE_SECRET_KEY) {
+
+  throw new Error(
+    "STRIPE_SECRET_KEY est manquante dans le fichier .env"
+  );
+}
 
 
 
@@ -18,12 +41,15 @@ import Stripe from "stripe";
 | INSTANCE STRIPE
 |--------------------------------------------------------------------------
 |
-| Connexion Stripe avec la clé secrète
-| stockée dans .env
+| Connexion à Stripe avec la clé secrète.
+|
+| IMPORTANT :
+| Cette clé ne doit jamais être envoyée côté client.
+| Elle reste uniquement côté serveur/API.
 |
 */
 const stripe = new Stripe(
-  process.env.STRIPE_SECRET_KEY as string
+  process.env.STRIPE_SECRET_KEY
 );
 
 
@@ -36,8 +62,9 @@ const stripe = new Stripe(
 | Cette route :
 |
 | - reçoit le montant du don
+| - vérifie que le montant est valide
 | - crée une session Stripe Checkout
-| - retourne une URL Stripe
+| - retourne l'URL Stripe au front
 |
 */
 export async function POST(request: Request) {
@@ -48,10 +75,31 @@ export async function POST(request: Request) {
 
     /*
     |--------------------------------------------------------------------------
+    | URL DU SITE
+    |--------------------------------------------------------------------------
+    |
+    | NEXT_PUBLIC_SITE_URL permet d'éviter d'écrire localhost en dur.
+    |
+    | En local :
+    | NEXT_PUBLIC_SITE_URL=http://localhost:3000
+    |
+    | En production :
+    | NEXT_PUBLIC_SITE_URL=https://ton-site.fr
+    |
+    | Si la variable n'existe pas, on garde localhost par défaut.
+    |
+    */
+    const siteUrl =
+      process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
+
+
+    /*
+    |--------------------------------------------------------------------------
     | RÉCUPÉRATION BODY
     |--------------------------------------------------------------------------
     |
-    | Exemple :
+    | Le front envoie par exemple :
     |
     | {
     |   montant: 20
@@ -66,6 +114,9 @@ export async function POST(request: Request) {
     |--------------------------------------------------------------------------
     | CONVERSION MONTANT
     |--------------------------------------------------------------------------
+    |
+    | On convertit la valeur reçue en nombre.
+    |
     */
     const montant =
       Number(body.montant);
@@ -76,6 +127,12 @@ export async function POST(request: Request) {
     |--------------------------------------------------------------------------
     | VÉRIFICATION MONTANT
     |--------------------------------------------------------------------------
+    |
+    | On refuse :
+    | - valeur vide
+    | - valeur non numérique
+    | - montant inférieur à 1 €
+    |
     */
     if (!montant || montant < 1) {
 
@@ -96,6 +153,9 @@ export async function POST(request: Request) {
     |--------------------------------------------------------------------------
     | CRÉATION SESSION STRIPE
     |--------------------------------------------------------------------------
+    |
+    | Stripe Checkout crée une page de paiement sécurisée.
+    |
     */
     const session =
       await stripe.checkout.sessions.create({
@@ -104,7 +164,7 @@ export async function POST(request: Request) {
 
         /*
         |--------------------------------------------------------------------------
-        | MOYEN PAIEMENT
+        | MOYEN DE PAIEMENT
         |--------------------------------------------------------------------------
         */
         payment_method_types: ["card"],
@@ -113,11 +173,10 @@ export async function POST(request: Request) {
 
         /*
         |--------------------------------------------------------------------------
-        | TYPE SESSION
+        | TYPE DE PAIEMENT
         |--------------------------------------------------------------------------
         |
-        | payment
-        | = paiement unique
+        | payment = paiement unique
         |
         */
         mode: "payment",
@@ -126,7 +185,7 @@ export async function POST(request: Request) {
 
         /*
         |--------------------------------------------------------------------------
-        | PRODUIT STRIPE
+        | PRODUIT / DON
         |--------------------------------------------------------------------------
         */
         line_items: [
@@ -146,7 +205,7 @@ export async function POST(request: Request) {
 
               /*
               |--------------------------------------------------------------------------
-              | NOM PRODUIT
+              | NOM AFFICHÉ DANS STRIPE
               |--------------------------------------------------------------------------
               */
               product_data: {
@@ -159,16 +218,17 @@ export async function POST(request: Request) {
 
               /*
               |--------------------------------------------------------------------------
-              | MONTANT
+              | MONTANT EN CENTIMES
               |--------------------------------------------------------------------------
               |
-              | Stripe utilise les centimes
+              | Stripe attend les montants en centimes.
               |
-              | 10 €
-              | => 1000
+              | Exemple :
+              | 10 € devient 1000
               |
               */
-              unit_amount: Math.round(montant * 100),
+              unit_amount:
+                Math.round(montant * 100),
             },
 
 
@@ -189,11 +249,11 @@ export async function POST(request: Request) {
         | URL SUCCÈS
         |--------------------------------------------------------------------------
         |
-        | Après paiement réussi
+        | Après paiement réussi, l'utilisateur revient ici.
         |
         */
         success_url:
-          "http://localhost:3000/",
+          `${siteUrl}/paiement-success`,
 
 
 
@@ -202,11 +262,12 @@ export async function POST(request: Request) {
         | URL ANNULATION
         |--------------------------------------------------------------------------
         |
-        | Si utilisateur annule paiement
+        | Si l'utilisateur annule le paiement,
+        | il revient sur la page don.
         |
         */
         cancel_url:
-          "http://localhost:3000/don",
+          `${siteUrl}/don`,
       });
 
 
@@ -215,6 +276,10 @@ export async function POST(request: Request) {
     |--------------------------------------------------------------------------
     | RETOUR URL STRIPE
     |--------------------------------------------------------------------------
+    |
+    | Le front récupère cette URL
+    | puis redirige l'utilisateur vers Stripe.
+    |
     */
     return NextResponse.json({
 
