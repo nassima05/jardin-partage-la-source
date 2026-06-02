@@ -70,7 +70,7 @@ export default function Footer() {
           </Link>
 
           <Link
-            href="/cookies"
+            href="/politique-cookies"
             className={styles.footerLink}
           >
             Politique de cookies

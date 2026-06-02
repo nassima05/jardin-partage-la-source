@@ -1,0 +1,48 @@
+.main {
+  background-color: white;
+}
+
+.hero {
+  padding: 12rem 0 5rem;
+  background-color: #F4F8F2;
+}
+
+.title {
+  color: #1F1F1F;
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  max-width: 850px;
+  margin: auto;
+  font-size: 1.15rem;
+  line-height: 1.8;
+}
+
+.faqList {
+  max-width: 900px;
+  margin: auto;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.faqItem {
+  background-color: white;
+  border: 1px solid #dfe8dc;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 6px 18px rgba(83, 129, 53, 0.1);
+}
+
+.faqItem h2 {
+  color: #1F1F1F;
+  font-size: 1.35rem;
+  margin-bottom: 1rem;
+}
+
+.faqItem p {
+  line-height: 1.8;
+  margin: 0;
+}
