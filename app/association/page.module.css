@@ -39,3 +39,65 @@
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
+
+.externalLink {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #538135;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.externalLink:hover {
+  color: #E58A2A;
+  text-decoration: underline;
+}
+
+.memberGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.memberCard {
+  background-color: white;
+  border-radius: 14px;
+  padding: 1.2rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #dfe8dc;
+}
+
+.memberImage {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.memberCard h3 {
+  color: #3F6F3A;
+  font-size: 1.2rem;
+  margin-bottom: 0.4rem;
+}
+
+.memberCard p {
+  margin: 0;
+}
+
+/*
+|--------------------------------------------------------------------------
+| RESPONSIVE MEMBRES
+|--------------------------------------------------------------------------
+*/
+@media screen and (max-width: 576px) {
+  .memberGrid {
+    grid-template-columns: 1fr;
+  }
+}

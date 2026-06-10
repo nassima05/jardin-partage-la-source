@@ -395,3 +395,22 @@
   color: #E58A2A;
   text-decoration: underline;
 }
+
+.feeInfo {
+  margin-top: 1rem;
+  padding: 1rem 1.2rem;
+  background-color: #F4F8F2;
+  border-left: 5px solid #538135;
+  border-radius: 10px;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.cardFee {
+  margin: 1rem 0;
+  padding: 0.8rem 1rem;
+  background-color: #F4F8F2;
+  border-radius: 10px;
+  color: #3F6F3A;
+  font-weight: 700;
+}

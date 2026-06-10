@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import styles from "./page.module.css";
@@ -94,6 +95,117 @@ export default function AssociationPage() {
             Chaque jardinier participe à faire vivre cet esprit en respectant
             les autres, le fonctionnement du jardin et l’environnement.
           </p>
+        </section>
+
+                <section className={styles.lightSection}>
+  <div className="container py-5">
+
+    <h2>Les membres de l’association</h2>
+
+    <p>
+      Le Jardin Partagé La Source est animé par une équipe de bénévoles
+      engagés qui participent à l’entretien du jardin, à l’accueil des
+      habitants, à l’organisation des activités et à la transmission des
+      valeurs de partage et de respect de l’environnement.
+    </p>
+
+    <div className={styles.memberGrid}>
+
+      <div className={styles.memberCard}>
+        <Image
+          src="/photo-jardin-1.jpg"
+          alt="Président de l'association"
+          width={300}
+          height={220}
+          className={styles.memberImage}
+        />
+
+        <h3>Président</h3>
+
+        <p>Kamardine Wirdane</p>
+      </div>
+
+
+
+      <div className={styles.memberCard}>
+        <Image
+          src="/photo-tresoriere-20.jpg"
+          alt="Trésorière de l'association"
+          width={300}
+          height={220}
+          className={styles.memberImage}
+        />
+
+        <h3>Trésorière</h3>
+
+        <p>Bernadette Desbordes</p>
+      </div>
+
+
+
+      <div className={styles.memberCard}>
+        <Image
+          src="/photo-jardin-2.jpg"
+          alt="Membre actif de l'association"
+          width={300}
+          height={220}
+          className={styles.memberImage}
+        />
+
+        <h3>Membre et actif</h3>
+
+        <p>Abdeldjalil Mokrane</p>
+      </div>
+
+
+
+      <div className={styles.memberCard}>
+        <Image
+          src="/photo-jardin-3.jpg"
+          alt="Membre actif de l'association"
+          width={300}
+          height={220}
+          className={styles.memberImage}
+        />
+
+        <h3>Membre et actif</h3>
+
+        <p>Nom Prénom</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+
+        <section className="container py-5">
+
+          <h2>Ils parlent du jardin</h2>
+
+          <p>
+             Franceinfo a consacré une chronique au Jardin La Source,
+             mettant en lumière son rôle éducatif, environnemental et social
+             au sein du quartier.
+          </p>
+
+          <p>
+            L'interview souligne notamment l’engagement de Bernadette Desbordes,
+            affectueusement surnommée « Mamy Bernadette », qui accompagne les enfants
+            et les habitants dans la découverte du jardinage, du compostage et
+            de la culture des fruits et légumes.
+          </p>
+
+          <Link
+            href="https://www.franceinfo.fr/replay-radio/jardin/jardin-la-source-a-versailles-un-espace-jardin-potager-d-apprentissage-pour-les-petits-et-les-grands_4126767.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.externalLink}
+          >
+            Lire l’article sur Franceinfo
+          </Link>
+
         </section>
 
         <section className={styles.lightSection}>

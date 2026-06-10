@@ -162,10 +162,10 @@ export async function POST(request: Request) {
               |
               | Stripe travaille en centimes
               |
-              | 2000 = 20€
+              | 4000 = 40€
               |
               */
-              unit_amount: 2000,
+              unit_amount: 4000,
             },
 
 

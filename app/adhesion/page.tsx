@@ -56,6 +56,12 @@ export default function AdhesionPage() {
                 de participer à la vie associative, aux événements,
                 aux échanges de savoirs et aux projets collectifs.
               </p>
+
+              <p className={styles.feeInfo}>
+              La cotisation annuelle est fixée à <strong>40 €</strong>.
+              Elle concerne l’adhésion simple ainsi que les demandes de parcelle.
+              </p>
+
             </div>
 
             <div className="col-md-5">
@@ -106,6 +112,9 @@ export default function AdhesionPage() {
                     échanger avec les adhérents ou contribuer à la vie du jardin
                     sans demander de parcelle.
                   </p>
+                  <p className={styles.cardFee}>
+                  Cotisation annuelle : <strong>40 €</strong>
+                  </p>
 
                   <ul>
                     <li>Participer aux événements</li>
@@ -131,6 +140,9 @@ export default function AdhesionPage() {
                     Pour les personnes résidant à Versailles qui souhaitent
                     cultiver une parcelle individuelle ou participer à une
                     parcelle collective selon les disponibilités.
+                  </p>
+                  <p className={styles.cardFee}>
+                  Cotisation annuelle : <strong>40 €</strong>
                   </p>
 
                   <ul>

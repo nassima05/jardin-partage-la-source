@@ -223,7 +223,7 @@ export default function PaiementPage() {
       |
       |
       | Donc :
-      | le navigateur quitte ton site
+      | le navigateur quitte le site
       | et ouvre la page Stripe sécurisée.
       |
       */
@@ -301,7 +301,7 @@ export default function PaiementPage() {
         Montant :
         {" "}
         <strong>
-          20 €
+          40 €
         </strong>
       </p>
 
