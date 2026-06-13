@@ -4,46 +4,47 @@
 |--------------------------------------------------------------------------
 | IMPORTS
 |--------------------------------------------------------------------------
+|
+| useSearchParams :
+| permet de récupérer l'id de la pré-demande dans l'URL.
+|
+| useEffect :
+| permet de confirmer le paiement au chargement de la page.
+|
+| useState :
+| permet d'afficher un message dynamique.
+|
 */
-
-// Hook Next.js
-// Permet de récupérer les paramètres URL
 import { useSearchParams } from "next/navigation";
-
-// Hooks React
 import { useEffect, useState } from "react";
 
-// Import CSS module
 import styles from "./page.module.css";
 
 
 
 /*
 |--------------------------------------------------------------------------
-| PAGE PAIEMENT SUCCESS
+| PAGE PAIEMENT CONFIRMÉ
 |--------------------------------------------------------------------------
 */
 export default function PaiementSuccessPage() {
 
   /*
   |--------------------------------------------------------------------------
-  | PARAMÈTRES URL
+  | RÉCUPÉRATION PARAMÈTRE URL
   |--------------------------------------------------------------------------
-  |
-  | Exemple :
-  |
-  | /paiement-success?id=18
-  |
   */
   const searchParams = useSearchParams();
 
 
+
   /*
   |--------------------------------------------------------------------------
-  | RÉCUPÉRATION ID DEMANDE
+  | ID DE LA PRÉ-DEMANDE
   |--------------------------------------------------------------------------
   */
   const id = searchParams.get("id");
+
 
 
   /*
@@ -52,43 +53,34 @@ export default function PaiementSuccessPage() {
   |--------------------------------------------------------------------------
   */
   const [message, setMessage] = useState(
-    "Confirmation du paiement..."
+    "Confirmation du paiement en cours..."
   );
+
 
 
   /*
   |--------------------------------------------------------------------------
-  | useEffect
+  | CONFIRMATION DU PAIEMENT
   |--------------------------------------------------------------------------
   |
-  | Exécuté au chargement de la page
+  | Lorsque la page se charge après le paiement,
+  | on appelle /api/paiement.
+  |
+  | Cette API met à jour :
+  | - le statut
+  | - la date d'adhésion
+  | - la date d'expiration
   |
   */
   useEffect(() => {
 
-    /*
-    |--------------------------------------------------------------------------
-    | FONCTION CONFIRMATION PAIEMENT
-    |--------------------------------------------------------------------------
-    */
     async function confirmerPaiement() {
 
       try {
 
-        /*
-        |--------------------------------------------------------------------------
-        | APPEL API /api/paiement
-        |--------------------------------------------------------------------------
-        |
-        | Met à jour :
-        |
-        | statut = adhesion_finalisee
-        |
-        */
         const response = await fetch(
           "/api/paiement",
           {
-
             method: "PATCH",
 
             headers: {
@@ -96,39 +88,21 @@ export default function PaiementSuccessPage() {
             },
 
             body: JSON.stringify({
-
               id_predemande: id,
             }),
           }
         );
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | RÉCUPÉRATION JSON
-        |--------------------------------------------------------------------------
-        */
         const data = await response.json();
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | SI SUCCÈS
-        |--------------------------------------------------------------------------
-        */
         if (response.ok) {
 
           setMessage(
-            "Paiement confirmé. Votre adhésion est désormais finalisée."
+            "Merci, votre adhésion est désormais finalisée. Votre cotisation annuelle est valable pendant un an à compter de la date du paiement."
           );
 
         } else {
 
-          /*
-          |--------------------------------------------------------------------------
-          | SI ERREUR API
-          |--------------------------------------------------------------------------
-          */
           setMessage(
             data.message ||
             "Erreur lors de la confirmation du paiement."
@@ -137,11 +111,6 @@ export default function PaiementSuccessPage() {
 
       } catch (error) {
 
-        /*
-        |--------------------------------------------------------------------------
-        | SI ERREUR SERVEUR
-        |--------------------------------------------------------------------------
-        */
         setMessage(
           "Erreur serveur."
         );
@@ -149,28 +118,20 @@ export default function PaiementSuccessPage() {
     }
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | SI ID EXISTE
-    |--------------------------------------------------------------------------
-    */
+
     if (id) {
 
       confirmerPaiement();
 
     } else {
 
-      /*
-      |--------------------------------------------------------------------------
-      | SI ID ABSENT
-      |--------------------------------------------------------------------------
-      */
       setMessage(
         "Paiement introuvable."
       );
     }
 
   }, [id]);
+
 
 
   /*
@@ -183,7 +144,7 @@ export default function PaiementSuccessPage() {
     <main className={styles.container}>
 
       <h1 className={styles.title}>
-        Paiement Stripe
+        Paiement confirmé
       </h1>
 
       <p className={styles.message}>

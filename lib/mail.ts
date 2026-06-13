@@ -129,32 +129,45 @@ export async function sendAdminDecisionEmail(demande: any, statut: string) {
 }
 export async function sendPaiementEmail(demande: any) {
   const paiementLink =
-    `http://localhost:3000/paiement?id=${demande.id_predemande}`;
+     `http://localhost:3000/api/checkout?id=${demande.id_predemande}`;
 
   await transporter.sendMail({
     from: process.env.EMAIL_USER,
     to: demande.email,
     subject: "Paiement de votre cotisation - Jardin Partagé",
-    html: `
-      <h2>Paiement de votre cotisation</h2>
+      html: `
+         <h2>Paiement de votre cotisation</h2>
 
-      <p>Bonjour ${demande.prenom},</p>
+         <p>Bonjour ${demande.prenom},</p>
+
+         <p>
+         Votre adresse email a bien été confirmée.
+        </p>
+
+        <p>
+        Afin de finaliser votre adhésion au Jardin Partagé La Source,
+        veuillez procéder au règlement de votre cotisation annuelle de 40 €.
+        </p>
+
+       <p>
+       Le paiement est sécurisé et réalisé via notre prestataire de paiement.
+       Aucune donnée bancaire n'est stockée par l'association.
+       </p>
 
       <p>
-        Votre adresse email a bien été confirmée.
+      Votre adhésion sera valable pendant un an à compter de la date du paiement.
+      Vous recevrez un rappel avant la date de renouvellement.
       </p>
 
       <p>
-        Vous pouvez désormais procéder au règlement
-        de votre cotisation afin de finaliser votre adhésion
-        au Jardin Partagé.
+        Une fois le paiement confirmé, votre adhésion sera définitivement validée.
       </p>
 
       <p>
-        <a href="${paiementLink}">
-          Accéder au paiement
-        </a>
-      </p>
-    `,
+      <a href="${paiementLink}">
+      Accéder au paiement sécurisé
+      </a>
+  </p>
+`,
   });
 }

@@ -1,263 +1,126 @@
-// Import de NextResponse
-// Permet de retourner des réponses API Next.js
 import { NextResponse } from "next/server";
-
-
-// Import de Stripe
-// Librairie officielle Stripe
 import Stripe from "stripe";
 
-
-// Création d'une instance Stripe
-// avec la clé secrète stockée dans .env
 const stripe = new Stripe(
-
-  // process.env permet de lire les variables .env
   process.env.STRIPE_SECRET_KEY as string
 );
 
+/*
+|--------------------------------------------------------------------------
+| CRÉATION SESSION STRIPE
+|--------------------------------------------------------------------------
+*/
+async function createCheckoutSession(idPredemande: string) {
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+
+    mode: "payment",
+
+    line_items: [
+      {
+        price_data: {
+          currency: "eur",
+
+          product_data: {
+            name: "Cotisation Jardin Partagé",
+          },
+
+          unit_amount: 4000,
+        },
+
+        quantity: 1,
+      },
+    ],
+
+    success_url:
+      `http://localhost:3000/paiement-success?id=${idPredemande}`,
+
+    cancel_url:
+      `http://localhost:3000/paiement?id=${idPredemande}`,
+  });
+
+  return session;
+}
 
 /*
 |--------------------------------------------------------------------------
-| ROUTE API POST
+| POST - UTILISÉ PAR LA PAGE /paiement
 |--------------------------------------------------------------------------
-|
-| Cette route sera appelée quand
-| l'utilisateur cliquera sur :
-|
-| "Confirmer le paiement"
-|
-| Le frontend enverra :
-|
-| {
-|   id_predemande: 18
-| }
-|
-| Ensuite Stripe créera :
-|
-| - une session Checkout
-| - une page de paiement sécurisée
-| - une URL Stripe
-|
 */
 export async function POST(request: Request) {
-
   try {
-
-    /*
-    |--------------------------------------------------------------------------
-    | RÉCUPÉRATION DES DONNÉES ENVOYÉES
-    |--------------------------------------------------------------------------
-    |
-    | request.json() récupère le body JSON
-    |
-    | Exemple :
-    |
-    | {
-    |   id_predemande: 18
-    | }
-    |
-    */
     const body = await request.json();
 
+    if (!body.id_predemande) {
+      return NextResponse.json(
+        {
+          message: "Identifiant obligatoire",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
 
+    const session = await createCheckoutSession(
+      body.id_predemande
+    );
 
-    /*
-    |--------------------------------------------------------------------------
-    | CRÉATION SESSION STRIPE CHECKOUT
-    |--------------------------------------------------------------------------
-    |
-    | Stripe génère une vraie session de paiement.
-    |
-    | Cela retourne :
-    |
-    | - un identifiant session
-    | - une URL Stripe Checkout
-    | - toutes les informations du paiement
-    |
-    */
-    const session =
-      await stripe.checkout.sessions.create({
-
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | MOYENS DE PAIEMENT AUTORISÉS
-        |--------------------------------------------------------------------------
-        |
-        | Ici :
-        | uniquement carte bancaire
-        |
-        */
-        payment_method_types: ["card"],
-
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | TYPE DE PAIEMENT
-        |--------------------------------------------------------------------------
-        |
-        | "payment"
-        | = paiement unique
-        |
-        | (contrairement aux abonnements)
-        |
-        */
-        mode: "payment",
-
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | PRODUIT À PAYER
-        |--------------------------------------------------------------------------
-        |
-        | line_items
-        | = liste des éléments à payer
-        |
-        */
-        line_items: [
-
-          {
-            /*
-            |--------------------------------------------------------------------------
-            | DONNÉES DU PRIX
-            |--------------------------------------------------------------------------
-            */
-            price_data: {
-
-
-              /*
-              |--------------------------------------------------------------------------
-              | MONNAIE
-              |--------------------------------------------------------------------------
-              */
-              currency: "eur",
-
-
-
-              /*
-              |--------------------------------------------------------------------------
-              | NOM DU PRODUIT
-              |--------------------------------------------------------------------------
-              |
-              | Ce texte sera affiché
-              | sur la page Stripe Checkout
-              |
-              */
-              product_data: {
-
-                name:
-                  "Cotisation Jardin Partagé",
-              },
-
-
-
-              /*
-              |--------------------------------------------------------------------------
-              | MONTANT
-              |--------------------------------------------------------------------------
-              |
-              | Stripe travaille en centimes
-              |
-              | 4000 = 40€
-              |
-              */
-              unit_amount: 4000,
-            },
-
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | QUANTITÉ
-            |--------------------------------------------------------------------------
-            */
-            quantity: 1,
-          },
-        ],
-
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | URL SUCCESS
-        |--------------------------------------------------------------------------
-        |
-        | Si le paiement réussit :
-        |
-        | Stripe redirige ici
-        |
-        | Exemple :
-        |
-        | /paiement-success?id=18
-        |
-        */
-        success_url:
-          `http://localhost:3000/paiement-success?id=${body.id_predemande}`,
-
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | URL CANCEL
-        |--------------------------------------------------------------------------
-        |
-        | Si l'utilisateur annule :
-        |
-        | Stripe redirige ici
-        |
-        */
-        cancel_url:
-          "http://localhost:3000/paiement",
-      });
-
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | RETOUR API
-    |--------------------------------------------------------------------------
-    |
-    | On retourne l'URL Stripe Checkout
-    |
-    | Exemple :
-    |
-    | {
-    |   url: "https://checkout.stripe.com/..."
-    | }
-    |
-    */
     return NextResponse.json({
-
-      // URL Stripe sécurisée
       url: session.url,
     });
 
   } catch (error) {
-
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | DEBUG TERMINAL
-    |--------------------------------------------------------------------------
-    */
     console.error(error);
 
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | ERREUR SERVEUR
-    |--------------------------------------------------------------------------
-    */
     return NextResponse.json(
       {
-        message:
-          "Erreur lors de la création du paiement Stripe",
+        message: "Erreur lors de la création du paiement Stripe",
+      },
+      {
+        status: 500,
+      }
+    );
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| GET - UTILISÉ PAR LE LIEN DIRECT DANS L'EMAIL
+|--------------------------------------------------------------------------
+*/
+export async function GET(request: Request) {
+  try {
+    const url = new URL(request.url);
+
+    const idPredemande =
+      url.searchParams.get("id");
+
+    if (!idPredemande) {
+      return NextResponse.json(
+        {
+          message: "Identifiant obligatoire",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
+
+    const session = await createCheckoutSession(
+      idPredemande
+    );
+
+    return NextResponse.redirect(
+      session.url as string
+    );
+
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      {
+        message: "Erreur lors de la création du paiement Stripe",
       },
       {
         status: 500,

@@ -32,9 +32,34 @@ export async function PATCH(request: Request) {
       );
     }
 
-    await demande.update({
-      statut: "adhesion_finalisee",
-    });
+    /*
+|--------------------------------------------------------------------------
+| DATES D'ADHÉSION
+|--------------------------------------------------------------------------
+*/
+const dateAdhesion = new Date();
+
+const dateExpiration = new Date();
+
+dateExpiration.setFullYear(
+  dateExpiration.getFullYear() + 1
+);
+
+
+
+/*
+|--------------------------------------------------------------------------
+| MISE À JOUR DE LA DEMANDE
+|--------------------------------------------------------------------------
+*/
+await demande.update({
+
+  statut: "adhesion_finalisee",
+
+  date_adhesion: dateAdhesion,
+
+  date_expiration: dateExpiration,
+});
 
     return NextResponse.json({
       message: "Paiement confirmé",

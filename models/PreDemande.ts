@@ -43,13 +43,32 @@ PreDemande.init(
     email_token_expires_at: {
       type: DataTypes.DATE,
     },
-    email_verified_at: {
-      type: DataTypes.DATE,
-    },
-    created_at: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
+   email_verified_at: {
+  type: DataTypes.DATE,
+},
+
+/*
+|--------------------------------------------------------------------------
+| DATE D'ADHÉSION
+|--------------------------------------------------------------------------
+*/
+date_adhesion: {
+  type: DataTypes.DATE,
+},
+
+/*
+|--------------------------------------------------------------------------
+| DATE D'EXPIRATION
+|--------------------------------------------------------------------------
+*/
+date_expiration: {
+  type: DataTypes.DATE,
+},
+
+created_at: {
+  type: DataTypes.DATE,
+  defaultValue: DataTypes.NOW,
+},
   },
   {
     sequelize,
