@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import PreDemande from "@/models/PreDemande";
 
 const stripe = new Stripe(
   process.env.STRIPE_SECRET_KEY as string
@@ -11,7 +12,44 @@ const stripe = new Stripe(
 |--------------------------------------------------------------------------
 */
 async function createCheckoutSession(idPredemande: string) {
+
+  /*
+  |--------------------------------------------------------------------------
+  | RÉCUPÉRATION DE LA DEMANDE
+  |--------------------------------------------------------------------------
+  |
+  | On récupère la pré-demande pour obtenir
+  | l'adresse email de l'utilisateur.
+  |
+  | Cette adresse sera envoyée à Stripe
+  | afin qu'il puisse envoyer le reçu automatiquement.
+  |
+  */
+  const demande =
+    await PreDemande.findByPk(idPredemande);
+
+  if (!demande) {
+    throw new Error("Demande introuvable");
+  }
+
+  const email =
+    (demande as any).email;
+
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | CRÉATION SESSION STRIPE
+  |--------------------------------------------------------------------------
+  */
   const session = await stripe.checkout.sessions.create({
+
+    customer_email: email,
+
+    payment_intent_data: {
+      receipt_email: email,
+    },
+
     payment_method_types: ["card"],
 
     mode: "payment",

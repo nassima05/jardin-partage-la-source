@@ -168,9 +168,9 @@ export default function AssociationPage() {
           className={styles.memberImage}
         />
 
-        <h3>Membre et actif</h3>
+        <h3>Membre</h3>
 
-        <p>Nom Prénom</p>
+        <p>Davimar Gomes Custodio</p>
       </div>
 
     </div>
