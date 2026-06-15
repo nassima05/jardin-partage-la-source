@@ -168,9 +168,11 @@ export async function POST(request: Request) {
     const nom = cleanText(body.nom || "");
     const prenom = cleanText(body.prenom || "");
     const email = cleanText(body.email || "").toLowerCase();
+    const telephone = cleanText(body.telephone || "");
     const adresse = cleanText(body.adresse || "");
     const ville = cleanText(body.ville || "");
     const typeDemande = cleanText(body.type_demande || "");
+    const motivation = cleanText(body.motivation || "");
 
 
 
@@ -183,9 +185,11 @@ export async function POST(request: Request) {
       !nom ||
       !prenom ||
       !email ||
+      !telephone ||
       !adresse ||
       !ville ||
-      !typeDemande
+      !typeDemande ||
+      !motivation
     ) {
 
       return NextResponse.json(
@@ -228,8 +232,10 @@ export async function POST(request: Request) {
       nom.length > 80 ||
       prenom.length > 80 ||
       email.length > 120 ||
+      telephone.length > 30 ||
       adresse.length > 200 ||
-      ville.length > 100
+      ville.length > 100 ||
+      motivation.length > 1000
     ) {
 
       return NextResponse.json(
@@ -357,8 +363,10 @@ export async function POST(request: Request) {
       nom: nom,
       prenom: prenom,
       email: email,
+      telephone: telephone,
       adresse: adresse,
       ville: ville,
+      motivation: motivation,
       type_demande: typeDemande,
       statut: statutInitial,
       email_token: token,

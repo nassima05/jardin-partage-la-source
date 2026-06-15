@@ -186,6 +186,8 @@ export default function FormulaireAdhesionPage() {
     */
     event.preventDefault();
 
+   
+
 
 
     /*
@@ -334,6 +336,7 @@ export default function FormulaireAdhesionPage() {
 
               <input
                 type="text"
+                required
                 className={styles.input}
                 placeholder="Votre nom"
                 value={nom}
@@ -355,6 +358,7 @@ export default function FormulaireAdhesionPage() {
 
               <input
                 type="text"
+                required
                 className={styles.input}
                 placeholder="Votre prénom"
                 value={prenom}
@@ -376,6 +380,7 @@ export default function FormulaireAdhesionPage() {
 
               <input
                 type="email"
+                required
                 className={styles.input}
                 placeholder="email@example.com"
                 value={email}
@@ -397,6 +402,7 @@ export default function FormulaireAdhesionPage() {
 
               <input
                 type="tel"
+                required
                 className={styles.input}
                 placeholder="Votre numéro"
                 value={telephone}
@@ -420,6 +426,7 @@ export default function FormulaireAdhesionPage() {
 
               <input
                 type="text"
+                required
                 className={styles.input}
                 placeholder="Votre adresse"
                 value={adresse}
@@ -441,6 +448,7 @@ export default function FormulaireAdhesionPage() {
 
               <input
                 type="text"
+                required
                 className={styles.input}
                 placeholder="Votre ville"
                 value={ville}
@@ -461,6 +469,7 @@ export default function FormulaireAdhesionPage() {
               </label>
 
               <textarea
+              required
                 className={styles.textarea}
                 placeholder={
                   isParcelle

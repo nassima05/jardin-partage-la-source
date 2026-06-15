@@ -22,11 +22,17 @@ PreDemande.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    telephone: {
+      type: DataTypes.STRING,
+    },
     adresse: {
       type: DataTypes.STRING,
     },
     ville: {
       type: DataTypes.STRING,
+    },
+    motivation: {
+    type: DataTypes.TEXT,
     },
     type_demande: {
       type: DataTypes.STRING,
