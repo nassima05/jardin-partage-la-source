@@ -29,7 +29,7 @@ export default function CookieBanner() {
   */
   useEffect(() => {
 
-    const consent = localStorage.getItem("cookieConsent");
+    const consent = sessionStorage.getItem("cookieConsent");
 
     if (!consent) {
       setShowBanner(true);
@@ -44,10 +44,14 @@ export default function CookieBanner() {
   | ACCEPTER
   |--------------------------------------------------------------------------
   */
-  function acceptCookies() {
-    localStorage.setItem("cookieConsent", "accepted");
-    setShowBanner(false);
-  }
+ function acceptCookies() {
+  sessionStorage.setItem(
+    "cookieConsent",
+    "accepted"
+  );
+
+  setShowBanner(false);
+}
 
 
 
@@ -57,10 +61,13 @@ export default function CookieBanner() {
   |--------------------------------------------------------------------------
   */
   function refuseCookies() {
-    localStorage.setItem("cookieConsent", "refused");
-    setShowBanner(false);
-  }
+  sessionStorage.setItem(
+    "cookieConsent",
+    "refused"
+  );
 
+  setShowBanner(false);
+}
 
 
   if (!showBanner) {
@@ -70,6 +77,7 @@ export default function CookieBanner() {
 
 
   return (
+    <div className={styles.overlay}>
 
     <div className={styles.cookieBox}>
 
@@ -134,6 +142,7 @@ export default function CookieBanner() {
       >
         En savoir plus sur les cookies
       </Link>
+     </div> 
 
     </div>
 

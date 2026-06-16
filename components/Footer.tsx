@@ -7,6 +7,8 @@ import Link from "next/link";
 
 import styles from "../app/page.module.css";
 
+import CookieSettingsLink from "./CookieSettingsLink";
+
 
 
 /*
@@ -75,6 +77,8 @@ export default function Footer() {
           >
             Politique de cookies
           </Link>
+
+          <CookieSettingsLink />
 
         </div>
 

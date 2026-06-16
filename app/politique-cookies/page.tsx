@@ -69,6 +69,11 @@ export default function PolitiqueCookiesPage() {
                 Cookies liés au service de paiement Stripe
               </li>
 
+              <li>
+                Service Google Maps utilisé pour afficher
+                la localisation du jardin.
+              </li>
+
             </ul>
 
 
@@ -98,9 +103,24 @@ export default function PolitiqueCookiesPage() {
               sécurisation des transactions et à la prévention de la fraude.
             </p>
 
+            <h2>5. Carte Google Maps</h2>
+
+            <p>
+              Le site utilise Google Maps afin de
+              permettre aux visiteurs de localiser
+              facilement le Jardin Partagé La Source.
+            </p>
+
+            <p>
+              Lors de l'affichage de cette carte,
+              Google peut déposer certains cookies
+              ou collecter des informations techniques
+              conformément à sa propre politique.
+           </p>
 
 
-            <h2>5. Gestion des cookies</h2>
+
+            <h2>6. Gestion des cookies</h2>
 
             <p>
               Vous pouvez à tout moment configurer votre navigateur afin
@@ -114,7 +134,7 @@ export default function PolitiqueCookiesPage() {
 
 
 
-            <h2>6. Évolution de la politique</h2>
+            <h2>7. Évolution de la politique</h2>
 
             <p>
               Cette politique peut être mise à jour afin de refléter les

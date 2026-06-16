@@ -104,3 +104,10 @@
   color: #E58A2A;
   text-decoration: underline;
 }
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.35);
+  z-index: 9998;
+}
