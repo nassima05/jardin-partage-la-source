@@ -1,0 +1,79 @@
+.main {
+  background-color: white;
+}
+
+.hero {
+  padding: 12rem 0 5rem;
+  background-color: #F4F8F2;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 2rem;
+  width: 120px;
+  height: auto;
+}
+
+.title {
+  color: #1F1F1F;
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  max-width: 700px;
+  margin: auto;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.formCard {
+  max-width: 650px;
+  margin: auto;
+  background-color: white;
+  border: 1px solid #dfe8dc;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 6px 18px rgba(83, 129, 53, 0.1);
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  padding: 0.9rem;
+  border: 1px solid #d5d5d5;
+  border-radius: 10px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #538135;
+}
+
+.button {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #538135;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #456c2b;
+}
+
+.feedback {
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 600;
+  color: #538135;
+}
