@@ -171,3 +171,54 @@ export async function sendPaiementEmail(demande: any) {
 `,
   });
 }
+
+export async function sendCreateAdherentAccountEmail(
+  email: string,
+  prenom: string,
+  token: string
+) {
+
+  const createAccountLink =
+    `http://localhost:3000/creer-espace-adherent?token=${token}`;
+
+  await transporter.sendMail({
+    from: process.env.EMAIL_USER,
+    to: email,
+
+    subject:
+      "Création de votre espace adhérent - Jardin Partagé",
+
+    html: `
+      <h2>Bienvenue au Jardin Partagé La Source</h2>
+
+      <p>Bonjour ${prenom},</p>
+
+      <p>
+        Votre adhésion a bien été validée.
+      </p>
+
+      <p>
+        Vous pouvez maintenant créer votre espace adhérent.
+      </p>
+
+      <p>
+        <a href="${createAccountLink}">
+          Créer mon espace adhérent
+        </a>
+      </p>
+
+      <p>
+        Lors de cette étape, vous choisirez :
+      </p>
+
+      <ul>
+        <li>un pseudo</li>
+        <li>un mot de passe</li>
+      </ul>
+
+      <p>
+        Ce lien est valable 24 heures.
+      </p>
+    `,
+  });
+}

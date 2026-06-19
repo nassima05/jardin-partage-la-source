@@ -11,10 +11,28 @@ Adherent.init(
       primaryKey: true,
     },
 
+    id_predemande: {
+    type: DataTypes.INTEGER,
+    },
+
+    nom: {
+    type: DataTypes.STRING,
+    },
+
+    prenom: {
+    type: DataTypes.STRING,
+    },
+
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+    },
+
+    pseudo: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    unique: true,
     },
 
     password_hash: {
@@ -25,6 +43,11 @@ Adherent.init(
     role: {
       type: DataTypes.STRING,
       defaultValue: "adherent",
+    },
+
+    statut: {
+    type: DataTypes.STRING,
+    defaultValue: "actif",
     },
 
     created_at: {
